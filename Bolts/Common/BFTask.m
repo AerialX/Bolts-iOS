@@ -197,7 +197,7 @@ NSString *const BFTaskMultipleErrorsUserInfoKey = @"errors";
 }
 
 
-+ (BFTask<BFVoid> *)taskWithDelay:(int)millis {
++ (BFTask *)taskWithDelay:(int)millis {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, millis * NSEC_PER_MSEC);
     dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
@@ -206,7 +206,7 @@ NSString *const BFTaskMultipleErrorsUserInfoKey = @"errors";
     return tcs.task;
 }
 
-+ (BFTask<BFVoid> *)taskWithDelay:(int)millis cancellationToken:(nullable BFCancellationToken *)token {
++ (BFTask *)taskWithDelay:(int)millis cancellationToken:(nullable BFCancellationToken *)token {
     if (token.cancellationRequested) {
         return [BFTask cancelledTask];
     }

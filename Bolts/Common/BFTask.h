@@ -39,18 +39,18 @@ extern NSString *const BFTaskMultipleErrorsUserInfoKey;
  inspect the state of the task, and to add continuations to
  be run once the task is complete.
  */
-@interface BFTask<__covariant ResultType> : NSObject
+@interface BFTask : NSObject
 
 /*!
  A block that can act as a continuation for a task.
  */
-typedef __nullable id(^BFContinuationBlock)(BFTask<ResultType> *t);
+typedef __nullable id(^BFContinuationBlock)(BFTask *t);
 
 /*!
  Creates a task that is already completed with the given result.
  @param result The result for the task.
  */
-+ (instancetype)taskWithResult:(nullable ResultType)result;
++ (instancetype)taskWithResult:(nullable id)result;
 
 /*!
  Creates a task that is already completed with the given error.
@@ -91,7 +91,7 @@ typedef __nullable id(^BFContinuationBlock)(BFTask<ResultType> *t);
  @param millis The approximate number of milliseconds to wait before the
  task will be finished (with result == nil).
  */
-+ (BFTask<BFVoid> *)taskWithDelay:(int)millis;
++ (BFTask *)taskWithDelay:(int)millis;
 
 /*!
  Returns a task that will be completed a certain amount of time in the future.
@@ -99,7 +99,7 @@ typedef __nullable id(^BFContinuationBlock)(BFTask<ResultType> *t);
  task will be finished (with result == nil).
  @param token The cancellation token (optional).
  */
-+ (BFTask<BFVoid> *)taskWithDelay:(int)millis cancellationToken:(nullable BFCancellationToken *)token;
++ (BFTask *)taskWithDelay:(int)millis cancellationToken:(nullable BFCancellationToken *)token;
 
 /*!
  Returns a task that will be completed after the given block completes with
@@ -118,7 +118,7 @@ typedef __nullable id(^BFContinuationBlock)(BFTask<ResultType> *t);
 /*!
  The result of a successful task.
  */
-@property (nullable, nonatomic, strong, readonly) ResultType result;
+@property (nullable, nonatomic, strong, readonly) id result;
 
 /*!
  The error of a failed task.
